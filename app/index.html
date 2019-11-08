@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+
+<body ng-app="toDoApp">
+    <div class="container" ng-controller="ToDoController">
+      <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-5 col-lg-offset-3 col-lg-5">
+        <h2>ToDo App</h2>
+
+        <div class="form">
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="task">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ng-click="addTask()"><span
+                class="glyphicon glyphicon-plus"></span> Add Task</button>
+            </span>
+          </div>
+        </div>
+        <hr/>
+
+        <ul class="list-group" ng-show="tasks.length > 0">
+          <li class="list-group-item clearfix task" ng-repeat="todo in tasks" ng-class="{disabled: todo.done}"> 
+            <p class="lead">{{todo.task}}</p>
+            <div>
+              <span class="pull-right">
+                <button class="btn btn-default btn-xs">
+                  <span class="glyphicon glyphicon-pencil" 
+                  ng-click="editTask($index)">
+                  </span>
+                </button>
+                <button class="btn btn-primary btn-xs" ng-show="!todo.done">
+                  <span class="glyphicon glyphicon-ok" 
+                  ng-click="doneTask($index)">
+                  </span>
+                </button>
+                <button class="btn btn-primary btn-xs" ng-show="todo.done">
+                  <span class="glyphicon glyphicon-repeat" 
+                  ng-click="unDoneTask($index)">
+                  </span>
+                </button>
+                <button class="btn btn-danger btn-xs">
+                  <span class="glyphicon glyphicon-remove" 
+                  ng-click="deleteTask($index)">
+                  </span>
+                </button>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+
+</html>
