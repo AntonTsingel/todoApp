@@ -7,5 +7,5 @@ require('http').createServer(function (request, response) {
 
         file.serve(request, response);
     }).resume();
-}).listen(8080);
-console.log('server available on: http://localhost:8080');
+}).listen(8000);
+console.log('server available on: http://localhost:8000');

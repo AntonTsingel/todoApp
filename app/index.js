@@ -1,29 +1,39 @@
-var app = angular.module('toDoApp', []);
-app
-  .controller('ToDoController', ['$scope', function ($scope) {
-    $scope.tasks = [];
-    $scope.editIndex = false;
-    $scope.addTask = function () {
-        if( $scope.editIndex === false){
-            $scope.tasks.push({task: $scope.task, done: false})
-        } else {
-            $scope.tasks[$scope.editIndex].task = $scope.task;
+
+angular.module('toDoApp', ['ngRoute', 'ngResource'])
+   .config(function ($routeProvider) {
+       'use strict';
+
+       var routeConfig = {
+           controller: 'ToDoController',
+           templateUrl: 'index.html',
+           resolve: {
+               store: function (todoStorage) {
+
+                   return todoStorage.then(function (module) {
+                       module.get();
+                       return module;
+                   });
+               }
+           }
+       };
+       var myProfile = {
+        controller: 'ToDoController',
+        templateUrl: 'myProfile.html',
+        resolve: {
+            store: function (todoStorage) {
+      
+                return todoStorage.then(function (module) {
+                    module.get();
+                    return module;
+                });
+            }
         }
-        $scope.editIndex = false;
-        $scope.task = '';
-    }
-        
-    $scope.editTask = function (index) {
-      $scope.task = $scope.tasks[index].task;
-      $scope.editIndex = index;
-    }
-    $scope.doneTask = function (index) {
-      $scope.tasks[index].done = true;
-    }
-    $scope.unDoneTask = function (index) {
-      $scope.tasks[index].done = false;
-    }
-    $scope.deleteTask = function (index) {
-      $scope.tasks.splice(index, 1);
-    }
-  }]);
+    };
+
+       $routeProvider
+           .when('/', routeConfig)
+           .when('/my-profile', myProfile)
+           .otherwise({
+               redirectTo: '/'
+           });
+   });
